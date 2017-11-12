@@ -6,7 +6,7 @@ public class Circle  implements Shapes {
 	private int radius;
 
 	public void printArea() {
-		System.out.println("Area og this Circle is" + radius * radius + "sq.m.");
+		System.out.println("Area og this Circle is"+Math.PI*radius * radius + "sq.m.");
 
 	}
 
