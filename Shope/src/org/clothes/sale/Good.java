@@ -1,14 +1,19 @@
 package org.clothes.sale;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Good {
 
 	private static Logger logger = Logger.getLogger(Good.class.getName());
+	
+	
 	private int code;
 	private int price;
 	private String name;
-
+	public void printGood(){
+		logger.log(Level.INFO,"Good is"+ name +code+price);
+	}
 	public String getName() {
 		return name;
 	}
@@ -39,5 +44,6 @@ public class Good {
 		this.name = name;
 	}
  public Good(){
+	
 }
 }

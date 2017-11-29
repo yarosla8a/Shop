@@ -2,38 +2,44 @@ package org.clothes.sale;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
-import java.util.LinkedList;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class PriceList {
 
-	private static Logger logger = Logger.getLogger(PriceList.class.getName());
+	public static Logger logger = Logger.getLogger(PriceList.class.getName());
+	
 
 	public static void main(String[] args) {
-		Good ts1 = new Good("Tshirt", 011, 200);
+		Good ts1 = new Good();
+		ts1.setName("Tshirt");
+		ts1.setCode(111);
+		ts1.setPrice(200);
 		Good ts2 = new Good("Tshirt", 011, 200);
+		ts2.setName("Tshirt");
+		ts2.setCode(111);
+		ts2.setPrice(200);
 		Good ts3 = new Good("Tshirt", 011, 200);
-		Good ts4 = new Good("Tshirt", 011, 200);
-		Good ts5 = new Good("Tshirt", 011, 200);
-		Good ts6 = new Good("Tshirt", 011, 200);
-		Good ts7 = new Good("Tshirt", 011, 200);
-		Good ts8 = new Good("Tshirt", 011, 200);
+		ts3.setName("Tshirt");
+		ts3.setCode(111);
+		ts3.setPrice(200);
 
 		ArrayList<Good> pricelist = new ArrayList<>();
 
-		pricelist.addAll(Arrays.asList(ts1, ts2, ts3, ts4, ts5, ts6, ts7, ts8));
+		pricelist.addAll(Arrays.asList(ts1, ts2, ts3));
 
 		int totalPrice = getTotalPrice(getChangePrice(pricelist));
 		logger.log(Level.INFO, "price of goods" + totalPrice + "UA");
 
 	}
+	
+
 
 	private static int getTotalPrice(ArrayList<Good> pricelist) {
 		int totalPrice = 0;
 
-		for (int i = 0; i < pricelist.size(); i++) {
+		for (int i = 1; i < pricelist.size(); i++) {
 			totalPrice = totalPrice + pricelist.get(i).getPrice();
 		}
 		return totalPrice;
