@@ -50,18 +50,17 @@ public class PriceList {
 		Comparator<Good> comparator = new Comparator<Good>(){//comparator сравнивает елементи по кодуж
 			@Override
 			public int compare(org.clothes.sale.Good ts1, org.clothes.sale.Good ts2) {
-				if(ts1.getCode(1).equals(ts2.getCode(2))){
+				if(ts1.equals(ts2)) {
 				return 1;
 				}
 				
 	
 		return 0;
-			
-	}
+			}
+	};
 		pricelist.sort(comparator);
 		return pricelist;
 	
 	}
 	
 	}
-}
