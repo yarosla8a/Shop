@@ -1,67 +1,67 @@
 package org.clothes.sale;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Comparator;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.clothes.sale.Good;
 
 public class PriceList {
+	private ArrayList<Good> pricelist;
 
-	public static Logger logger = Logger.getLogger(PriceList.class.getName());
-	
-
-	public static void main(String[] args) {
-		Good ts1 = new Good();
-		ts1.setName("Tshirt");
-		ts1.setCode(111);
-		ts1.setPrice(200);
-		Good ts2 = new Good("Tshirt", 011, 200);
-		ts2.setName("Tshirt");
-		ts2.setCode(111);
-		ts2.setPrice(200);
-		Good ts3 = new Good("Tshirt", 011, 200);
-		ts3.setName("Tshirt");
-		ts3.setCode(111);
-		ts3.setPrice(200);
-
-		ArrayList<Good> pricelist = new ArrayList<>();
-
-		pricelist.addAll(Arrays.asList(ts1, ts2, ts3));
-
-		int totalPrice = getTotalPrice(getChangePrice(pricelist));
-		logger.log(Level.INFO, "price of goods" + totalPrice + "UA");
-
-	}
-	
-
-
-	private static int getTotalPrice(ArrayList<Good> pricelist) {
-		int totalPrice = 0;
-
-		for (int i = 1; i < pricelist.size(); i++) {
-			totalPrice = totalPrice + pricelist.get(i).getPrice();
-		}
-		return totalPrice;
-	}
-
-	private static ArrayList<Good> getChangePrice(ArrayList<Good> pricelist) {
-		int j = 1;
-		for (int i = 0; i < pricelist.size(); i++) {
-			if (i != 0) {
-				if (pricelist.get(i).equals(pricelist.get(i - 1))) {
-					j = j+1;
-					if (i % 3 == 0) {
-						int newPrice = pricelist.get(i).getPrice() / 2;
-						pricelist.get(i).setPrice(newPrice);
-						
-					}
-				}
-				else{
-					j=1;
-				}
-			}
-		}
+	public ArrayList<Good> getPricelist() {
 		return pricelist;
+	}
+
+	public void setPricelist(ArrayList<Good> pricelist) {
+		this.pricelist = pricelist;
+	}
+
+	public void makeDiscount(int goods) {
+		int totalPrice = 0;
+		for (Good good : pricelist) {
+			totalPrice = totalPrice + good.getPrice();
+			System.out.println("total prace befor sale" + good.getPrice());
+
+		}
+		pricelist = getSortedPricelist(pricelist);
+		int counter = 1;
+		for (int i = 1; i < pricelist.size(); i++) {
+
+			if (pricelist.get(i).equals(pricelist.get(i + 1))) {
+				counter++;
+			} else {
+				counter = 1;
+			}
+			if (counter % 3 == 0 && pricelist.get(i).getPrice() == pricelist.get(i + 1).getPrice()) {
+				int newPrice = pricelist.get(i).getPrice() / 2;
+				pricelist.get(i).setPrice(newPrice);
+
+			}
+
+		}
+		totalPrice = 0;
+		for (Good good : pricelist) {
+			totalPrice = totalPrice + good.getPrice();
+			System.out.println("total price after sale" + totalPrice);
+		}
+	}
+
+	private ArrayList<Good> getSortedPricelist(ArrayList<Good> pricelist) {
+		Comparator<Good> comparator = new Comparator<Good>(){//comparator сравнивает елементи по кодуж
+			@Override
+			public int compare(org.clothes.sale.Good ts1, org.clothes.sale.Good ts2) {
+				if(ts1.getCode(1).equals(ts2.getCode(2))){
+				return 1;
+				}
+				
+	
+		return 0;
+			
+	}
+		pricelist.sort(comparator);
+		return pricelist;
+	
+	}
+	
 	}
 }
